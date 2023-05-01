@@ -1,7 +1,7 @@
 <h1>NgModel</h1>
 <p>Nombre: {{person.name}}</p>
-<input type="text" # [(ngModel)]="person.name">
-<p>Valid:{{}}</p>
+<input type="number" required  min="10" max="100" #nameInput="ngModel" [(ngModel)]="person.name">
+<p>Valid:{{nameInput.valid }}</p>
 <hr/>
 
 
