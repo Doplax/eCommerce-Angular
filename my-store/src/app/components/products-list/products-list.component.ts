@@ -1,5 +1,6 @@
 import { Product }from '../../interfaces/product.interface';
 import { Component } from '@angular/core';
+import { StoreService } from '../../services/store.service'
 
 @Component({
   selector: 'app-products-list',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent {
-  myShoppingCart: Product[] = []; // Aqui guardaremos los productos
+  myShoppingCart: Product[] = [];
   total: number = 0;
 
   products: Product[] = [
@@ -49,10 +50,15 @@ export class ProductsListComponent {
     },
   ];
 
+  constructor (private storeService: StoreService) {
+    this.myShoppingCart = this.storeService.getShoppingCart();
+    this.total = this.storeService.getTotal()
+
+  }
 
   onAddToShoppiongCart(product: Product): void {
-    console.log(product); // Escucharemos el Producto que estamos enviando
-    this.myShoppingCart.push(product) // Agregamos el producto al carrito
-    this.total =  this.myShoppingCart.reduce((sum, product) => sum + product.price,0)
+    this.storeService.addProduct(product)
+    this.total = this.storeService.getTotal()
+
   }
 }
