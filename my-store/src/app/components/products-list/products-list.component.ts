@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent {
+  myShoppingCart: Product[] = []; // Aqui guardaremos los productos
+  total: number = 0;
+
   products: Product[] = [
     {
       id: '1',
@@ -46,4 +49,10 @@ export class ProductsListComponent {
     },
   ];
 
+
+  onAddToShoppiongCart(product: Product): void {
+    console.log(product); // Escucharemos el Producto que estamos enviando
+    this.myShoppingCart.push(product) // Agregamos el producto al carrito
+    this.total =  this.myShoppingCart.reduce((sum, product) => sum + product.price,0)
+  }
 }
