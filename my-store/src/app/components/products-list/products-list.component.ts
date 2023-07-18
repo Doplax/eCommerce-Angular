@@ -52,7 +52,6 @@ export class ProductsListComponent {
 
   constructor (private storeService: StoreService) {
     this.myShoppingCart = this.storeService.getShoppingCart();
-    this.total = this.storeService.getTotal()
 
   }
 

@@ -3,7 +3,7 @@ import { Product }from '../interfaces/product.interface';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // El alcance del servivio
 })
 export class StoreService {
   private myShoppingCart: Product[] = []; // Aqui guardaremos los productos
