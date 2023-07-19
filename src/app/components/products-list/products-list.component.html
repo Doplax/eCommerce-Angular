@@ -1,0 +1,9 @@
+
+<div class="products--grid">
+  <app-product
+    *ngFor="let p of products"
+    [product]="p"
+    (addedProduct)="onAddToShoppiongCart($event)"
+    ></app-product>
+</div>
+
