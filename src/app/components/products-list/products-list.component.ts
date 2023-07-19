@@ -11,9 +11,11 @@ import { ProductsService } from '../../services/products.service'
 })
 export class ProductsListComponent {
   myShoppingCart: Product[] = [];
-  total: number = 0;
+  total = 0;
   today = new Date();
   date = new Date(2021, 1, 21);
+
+  showProductDetail =  false;
 
   products: Product[] = [];
 
@@ -33,6 +35,20 @@ export class ProductsListComponent {
   onAddToShoppiongCart(product: Product): void {
     this.storeService.addProduct(product)
     this.total = this.storeService.getTotal()
+  }
+
+  toggleProductDetail(){
+    this.showProductDetail = !this.showProductDetail
+  }
+
+  onShowDetail(id: number):void {
+    this.ProductsService.getProduct(id)
+      .subscribe(data => {
+        console.log('product',data)
+      })
+
+      this.showProductDetail = !this.showProductDetail
+
 
   }
 }

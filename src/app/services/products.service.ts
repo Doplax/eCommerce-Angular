@@ -8,12 +8,19 @@ import { Product }from '../interfaces/product.interface';
 })
 export class ProductsService {
 
+  private apiUrl = 'https://api.escuelajs.co/api/v1/products/'
+
   constructor(
     private Http: HttpClient
   ) { }
 
   getAllProducts(){
     // Con <Product> Le estamos diciendo el tipo de objeto que esperamos que nos devuelva
-    return this.Http.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products');
+    return this.Http.get<Product[]>(this.apiUrl);
+  }
+
+  getProduct(id:number) {
+    return this.Http.get<Product[]>(`${this.apiUrl}${id}`);
+
   }
 }

@@ -1,0 +1,9 @@
+<app-img *ngIf="product.images.length > 0" [changeImg]="product.images[0]"></app-img>
+<p>{{product.images[0]}}</p>
+<p>{{product.title}}</p>
+<p>{{product.price}}</p>
+<p>{{product.category.name}}</p>
+<button (click)="onAddToCart()">Add</button>
+<button (click)="onShowDetail()">Toggle</button>
+
+

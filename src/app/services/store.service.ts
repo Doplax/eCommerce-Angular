@@ -14,11 +14,13 @@ export class StoreService {
   //Se usa un $ cuando se trata de un observable
   myCart$ = this.myCart.asObservable();
 
-  constructor() { }
+  //constructor() { }
 
   addProduct(product: Product) {
     this.myShoppingCart.push(product) // Agregamos el producto al carrito
     this.myCart.next(this.myShoppingCart);
+    console.log(product);
+    console.log(this.myShoppingCart);
 
 
   }
