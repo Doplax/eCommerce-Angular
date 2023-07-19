@@ -56,10 +56,27 @@ export class ProductsListComponent {
       "categoryId": 1,
       "images": ["https://picsum.photos/640/640?r=6088"]
     }
-    this.ProductsService.create(product).subscribe(result => {
-      console.log(result);
+    this.ProductsService.create(product)
+    .subscribe(data => {
+      this.products.unshift(data);
     }, error => {
       console.error(error);
     });
+  }
+
+
+  updateProduct(){
+    const changes = {
+      title: "titulo"
+    }
+
+    const id = this.productChosen.id
+    this.ProductsService.upDate(id,changes)
+    .subscribe(data =>{
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id)
+      this.products[productIndex] = data;
+      this.productChosen = data;
+    });
+
   }
 }
