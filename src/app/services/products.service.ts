@@ -8,7 +8,7 @@ import { Product,CreateProductDTO }from '../interfaces/product.interface';
 })
 export class ProductsService {
 
-  private apiUrl = ' https://api.escuelajs.co/api/v1/products/'
+  private apiUrl = ' https://api.escuelajs.co/api/v1/products'
 
   constructor(
     private Http: HttpClient
@@ -20,11 +20,11 @@ export class ProductsService {
   }
 
   getProduct(id:number) {
-    return this.Http.get<Product>(`${this.apiUrl}${id}`);
+    return this.Http.get<Product>(`${this.apiUrl}products${id}`);
   }
 
   create(data: CreateProductDTO) {
-    return this.Http.post<Product>(`${this.apiUrl}`,data);
+    return this.Http.post<Product>(this.apiUrl,data);
   }
 
 

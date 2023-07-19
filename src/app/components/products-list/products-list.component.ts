@@ -48,14 +48,18 @@ export class ProductsListComponent {
   }
 
   createNewProduct(){
-    const product: CreateProductDTO = {
-      title: 'Nueo producto',
-      price: 1000,
-      description: 'bla bla bla ',
-      categoryID: 1,
-      images: [`https://picsum.photos/640/640?r=6088`],
+    const product: CreateProductDTO =
+    {
+      "title": "Nueo producto",
+      "price": 1000,
+      "description": "bla bla bla",
+      "categoryId": 1,
+      "images": ["https://picsum.photos/640/640?r=6088"]
     }
-    this.ProductsService.create(product)
-    console.log(product);
+    this.ProductsService.create(product).subscribe(result => {
+      console.log(result);
+    }, error => {
+      console.error(error);
+    });
   }
 }

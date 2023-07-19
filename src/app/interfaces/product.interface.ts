@@ -14,5 +14,5 @@ export interface Product {
 
 
 export interface CreateProductDTO extends Omit<Product, 'id' | 'category'>{
-  categoryID: number;
+  categoryId: number;
 }
