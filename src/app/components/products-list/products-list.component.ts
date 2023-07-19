@@ -79,4 +79,16 @@ export class ProductsListComponent {
     });
 
   }
+
+  deleteProduct() {
+    this.ProductsService.delete(this.productChosen.id)
+    .subscribe(data => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id)
+      this.products[productIndex] = data;
+      this.products.splice(productIndex,1)
+      this.toggleProductDetail();
+     })
+
+  }
+
 }

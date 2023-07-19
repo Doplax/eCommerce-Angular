@@ -31,4 +31,8 @@ export class ProductsService {
     return this.Http.put<Product>(this.apiUrl+id,dto);
   }
 
+  delete(id: number){
+    return this.Http.delete<Product>(this.apiUrl+id)
+  }
+
 }
