@@ -14,6 +14,6 @@ export class ProductsService {
 
   getAllProducts(){
     // Con <Product> Le estamos diciendo el tipo de objeto que esperamos que nos devuelva
-    return this.Http.get<Product[]>('https://fakestoreapi.com/products');
+    return this.Http.get<Product[]>('https://young-sands-07814.herokuapp.com/api/products');
   }
 }
