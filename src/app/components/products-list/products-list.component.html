@@ -9,12 +9,18 @@
 
 <div class="product-detail" [class.active]="showProductDetail">
 
-  <p>{{productChosen}}</p>
   <div *ngIf="productChosen">
     <button (click)="toggleProductDetail()">Close</button>
     <h1>{{productChosen.title}}</h1>
     <!--  -->
- 
+    <swiper-container
+    slides-per-view="1"
+
+    mousewheel-force-to-axis="true"
+  >
+    <swiper-slide *ngFor="let item of productChosen.images">
+      <img  [src]="item" alt=""></swiper-slide>
+  </swiper-container>
     <!--  -->
 
     <p>{{productChosen.desctiption}}</p>
