@@ -1,4 +1,4 @@
-import { Product }from '../../interfaces/product.interface';
+import { Product,CreateProductDTO }from '../../interfaces/product.interface';
 import { Component } from '@angular/core';
 import { StoreService } from '../../services/store.service'
 import { ProductsService } from '../../services/products.service'
@@ -45,8 +45,17 @@ export class ProductsListComponent {
         console.log('product',data)
         this.productChosen = data;
       })
+  }
 
-
-
+  createNewProduct(){
+    const product: CreateProductDTO = {
+      title: 'Nueo producto',
+      price: 1000,
+      description: 'bla bla bla ',
+      categoryID: 1,
+      images: [`https://picsum.photos/640/640?r=6088`],
+    }
+    this.ProductsService.create(product)
+    console.log(product);
   }
 }

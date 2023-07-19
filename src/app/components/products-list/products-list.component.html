@@ -1,3 +1,4 @@
+<button (click)="createNewProduct()" > Create </button>
 <div class="products--grid">
   <app-product
     *ngFor="let p of products"
@@ -15,15 +16,14 @@
     <!--  -->
     <swiper-container
     slides-per-view="1"
-
     mousewheel-force-to-axis="true"
   >
-    <swiper-slide *ngFor="let item of productChosen.images">
-      <img  [src]="item" alt=""></swiper-slide>
+    <swiper-slide >
+      <img height="100" [src]="productChosen.images[0]" alt=""></swiper-slide>
   </swiper-container>
     <!--  -->
 
-    <p>{{productChosen.desctiption}}</p>
+    <p>{{productChosen.description}}</p>
 
   </div>
 </div>

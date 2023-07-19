@@ -7,7 +7,12 @@ export interface Product {
   id: number;
   title: string;
   price: number;
-  images: string[];
-  desctiption: string;
+  images:string [];
+  description: string;
   category: Category;
+}
+
+
+export interface CreateProductDTO extends Omit<Product, 'id' | 'category'>{
+  categoryID: number;
 }
