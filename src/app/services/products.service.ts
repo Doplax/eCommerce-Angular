@@ -20,7 +20,7 @@ export class ProductsService {
   }
 
   getProduct(id:number) {
-    return this.Http.get<Product[]>(`${this.apiUrl}${id}`);
+    return this.Http.get<Product>(`${this.apiUrl}${id}`);
 
   }
 }

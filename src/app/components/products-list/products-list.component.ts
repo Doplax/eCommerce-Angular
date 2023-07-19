@@ -12,12 +12,9 @@ import { ProductsService } from '../../services/products.service'
 export class ProductsListComponent {
   myShoppingCart: Product[] = [];
   total = 0;
-  today = new Date();
-  date = new Date(2021, 1, 21);
-
-  showProductDetail =  false;
-
   products: Product[] = [];
+  showProductDetail =  false;
+  productChosen!: Product ;
 
   constructor (
     private storeService: StoreService,
@@ -44,10 +41,11 @@ export class ProductsListComponent {
   onShowDetail(id: number):void {
     this.ProductsService.getProduct(id)
       .subscribe(data => {
+        this.toggleProductDetail()
         console.log('product',data)
+        this.productChosen = data;
       })
 
-      this.showProductDetail = !this.showProductDetail
 
 
   }
