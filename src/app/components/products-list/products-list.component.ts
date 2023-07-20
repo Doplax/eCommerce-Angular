@@ -2,6 +2,8 @@ import { Product,CreateProductDTO }from '../../interfaces/product.interface';
 import { Component } from '@angular/core';
 import { StoreService } from '../../services/store.service'
 import { ProductsService } from '../../services/products.service'
+import { switchMap } from 'rxjs/operators'
+import { zip } from 'rxjs'
 
 
 @Component({
@@ -54,6 +56,15 @@ export class ProductsListComponent {
         window.alert(errorMsg)
         this.statusDetail = 'error'
       })
+  }
+
+  readAndUpdate(id:number){
+    this.ProductsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.ProductsService.upDate(product.id, {title: 'change'})),
+    ).subscribe(data => console.log(data))
+
+    zip()
   }
 
   createNewProduct(){
