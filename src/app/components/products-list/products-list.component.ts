@@ -18,6 +18,7 @@ export class ProductsListComponent {
 
   limit = 10
   offset = 0
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor (
     private storeService: StoreService,
@@ -42,11 +43,16 @@ export class ProductsListComponent {
   }
 
   onShowDetail(id: number):void {
+    this.statusDetail = 'loading'
     this.ProductsService.getProduct(id)
       .subscribe(data => {
         this.toggleProductDetail()
-        console.log('product',data)
         this.productChosen = data;
+        this.statusDetail = 'success'
+      },errorMsg =>{
+        console.error(errorMsg);
+        window.alert(errorMsg)
+        this.statusDetail = 'error'
       })
   }
 

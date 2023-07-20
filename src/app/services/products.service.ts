@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpParams } from '@angular/common/http';
-import { retry } from 'rxjs/operators';
+import { HttpClient , HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { retry, catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
+
 
 import { Product,CreateProductDTO, UpdateProductDTO }from '../interfaces/product.interface';
 
@@ -34,7 +36,23 @@ export class ProductsService {
   }
 
   getProduct(id:number) {
-    return this.Http.get<Product>(`${this.apiUrl}${id}`);
+    return this.Http.get<Product>(`${this.apiUrl}${id}`)
+    .pipe(catchError((error: HttpErrorResponse) => {
+      if (error.status === 500) {
+        return throwError('Ups, Halgo está fallando en el servidor')
+
+      }
+      if (error.status === HttpStatusCode.NotFound) {// Seria un error 404
+        return throwError('Ups, El producto no existe')
+
+      }
+      if (error.status === HttpStatusCode.Unauthorized) {// Seria un error 401
+        return throwError('Ups, No estás autorizado')
+
+      }
+        return throwError('Ups, ha habido un error')
+
+    }));
   }
 
   getProductsByPage(limit: number, offset: number) {
