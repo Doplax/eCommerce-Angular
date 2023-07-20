@@ -16,6 +16,9 @@ export class ProductsListComponent {
   showProductDetail =  false;
   productChosen!: Product ;
 
+  limit = 10
+  offset = 0
+
   constructor (
     private storeService: StoreService,
     private ProductsService: ProductsService
@@ -25,7 +28,7 @@ export class ProductsListComponent {
 
   ngOnInit () {
     // Ponemos esto aqui en vez de el constructor, ya que se trata de una peticion asincrona
-    this.ProductsService.getAllProducts()
+    this.ProductsService.getProductsByPage(this.limit,this.offset)
       .subscribe(data => {this.products = data})
   }
 
@@ -88,7 +91,16 @@ export class ProductsListComponent {
       this.products.splice(productIndex,1)
       this.toggleProductDetail();
      })
-
   }
+
+  loadMore() {
+    this.ProductsService.getProductsByPage(this.limit,this.offset)
+    .subscribe(data => {
+      this.products = [...this.products, ...data];
+      //this.products = this.products.concat(data); // Para no sobrescribir, lo concatenamos, pero concat es para arrays inmutables (no modifica el array original) por eso hacemos una reasignación
+      this.offset += this.limit;
+    })
+  }
+
 
 }
