@@ -1,8 +1,8 @@
 <div  >
   <app-img *ngIf="product.images.length > 0" [changeImg]="product.images[0]"></app-img>
   <p>{{product.title}}</p>
-  <p>{{product.price}}</p>
-  <p>{{product.category.name}}</p>
+  <p>{{product.price | currency: 'EUR'}}</p>
+  <p>IVA{{product?.taxes | currency: 'EUR'}}</p>
   <button (click)="onAddToCart()">Add</button>
   <button (click)="onShowDetail()">Toggle</button>
 </div>

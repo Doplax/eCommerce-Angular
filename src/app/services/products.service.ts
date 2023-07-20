@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
-import { of, throwError } from 'rxjs';
+import { throwError, map } from 'rxjs';
 
 
 import { Product,CreateProductDTO, UpdateProductDTO }from '../interfaces/product.interface';
 
 import { environment } from "../../environments/environment.prod"
+import { isNgTemplate } from '@angular/compiler';
 
 
 @Injectable({
@@ -27,11 +28,8 @@ export class ProductsService {
       params.set('limit', limit);
       params.set('offset', offset);
     }
-    return this.Http.get<Product[]>(this.apiUrl,{params})
-      .pipe(
-        retry(3)
-      )
-    ;
+    return this.Http.get<Product[]>(this.apiUrl,{params});
+
 
   }
 
@@ -58,7 +56,15 @@ export class ProductsService {
   getProductsByPage(limit: number, offset: number) {
     return this.Http.get<Product[]>(`${this.apiUrl}`,{
       params: {limit, offset}
-    })
+    }).pipe(
+      retry(3),// hará 3 intentos
+      map(products => products.map(product => {
+        return {
+          ...product,
+          taxes: .21 * product.price
+        }
+      })
+    ))
 
   }
 
