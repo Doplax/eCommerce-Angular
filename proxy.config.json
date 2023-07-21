@@ -1,0 +1,7 @@
+{
+  "/api/*": "https://api.escuelajs.co/api/v1/products/",
+  "secure": true,
+  "logLevel": "debug",
+  "changeOrigin": true
+
+}

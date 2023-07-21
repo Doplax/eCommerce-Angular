@@ -8,7 +8,18 @@ import { Product }from '../../interfaces/product.interface';
 })
 export class ProductComponent  {
 
-  @Input() product!: Product;
+  @Input() product: Product =
+    {
+      "id": 0 ,
+      "title": "Nueo producto",
+      "price": 1000,
+      "description": "bla bla bla",
+      "categoryId": {
+        id: 0,
+        name: '',
+      },
+      "images": ["https://picsum.photos/640/640?r=6088"]
+    };
   @Input() showProductDetail = false;
 
   @Output() addedProduct = new EventEmitter<Product>();
