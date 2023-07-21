@@ -48,21 +48,21 @@ export class ProductsListComponent {
       })
   }
 
-  readAndUpdate(id: number){
-    this.ProductsService.getProduct(id)
-    .pipe(
-      switchMap((product) => this.ProductsService.upDate(product.id, {title: 'change'}))
-      )
-      .subscribe(data => {
-        console.log(data)
-      });
-      this.ProductsService.fetchReadAndUpdate(id,{title: 'change'}).subscribe(response => {
-        const read = response[0]
-        const update = response[1]
-      })
+  //readAndUpdate(id: number){
+  //  this.ProductsService.getProduct(id)
+  //  .pipe(
+  //    switchMap((product) => this.ProductsService.upDate(product.id, {title: 'change'}))
+  //    )
+  //    .subscribe(data => {
+  //      console.log(data)
+  //    });
+  //    this.ProductsService.fetchReadAndUpdate(id,{title: 'change'}).subscribe(response => {
+  //      const read = response[0]
+  //      const update = response[1]
+  //    })
 
 
-  }
+  //}
 
   createNewProduct(){
     const product: CreateProductDTO =
