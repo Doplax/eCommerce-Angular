@@ -5,6 +5,7 @@ import { throwError, map } from 'rxjs';
 
 
 import { Product,CreateProductDTO, UpdateProductDTO }from '../interfaces/product.interface';
+import { zip } from 'rxjs';
 
 import { environment } from "../../environments/environment.prod"
 import { isNgTemplate } from '@angular/compiler';
@@ -15,7 +16,7 @@ import { isNgTemplate } from '@angular/compiler';
 })
 export class ProductsService {
 
-  private apiUrl = `${environment.API_URL}`
+  private apiUrl = 'https://api.escuelajs.co/api/v1/products/'
 
   constructor(
     private Http: HttpClient
@@ -31,6 +32,13 @@ export class ProductsService {
     return this.Http.get<Product[]>(this.apiUrl,{params});
 
 
+  }
+
+  fetchReadAndUpdate (id:number, dto: UpdateProductDTO) {
+    return zip(
+      this.getProduct(id),
+      this.upDate(id, {title: 'nuevo'})
+    )
   }
 
   getProduct(id:number) {
