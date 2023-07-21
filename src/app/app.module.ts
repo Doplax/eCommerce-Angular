@@ -36,7 +36,7 @@ register();
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    
+
 
   ],
   providers: [],

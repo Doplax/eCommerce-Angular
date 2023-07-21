@@ -1,5 +1,6 @@
 import { Product,CreateProductDTO }from '../../interfaces/product.interface';
 import { Component } from '@angular/core';
+import { switchMap, zip } from 'rxjs';
 import { StoreService } from '../../services/store.service'
 import { ProductsService } from '../../services/products.service'
 
@@ -47,6 +48,22 @@ export class ProductsListComponent {
       })
   }
 
+  readAndUpdate(id: number){
+    this.ProductsService.getProduct(id)
+    .pipe(
+      switchMap((product) => this.ProductsService.upDate(product.id, {title: 'change'}))
+      )
+      .subscribe(data => {
+        console.log(data)
+      });
+      this.ProductsService.fetchReadAndUpdate(id,{title: 'change'}).subscribe(response => {
+        const read = response[0]
+        const update = response[1]
+      })
+
+
+  }
+
   createNewProduct(){
     const product: CreateProductDTO =
     {
@@ -77,7 +94,6 @@ export class ProductsListComponent {
       this.products[productIndex] = data;
       this.productChosen = data;
     });
-
   }
 
   deleteProduct() {
@@ -87,7 +103,7 @@ export class ProductsListComponent {
       this.products[productIndex] = data;
       this.products.splice(productIndex,1)
       this.toggleProductDetail();
-     })
+    })
 
   }
 

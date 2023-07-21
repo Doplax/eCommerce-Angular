@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product,CreateProductDTO, UpdateProductDTO }from '../interfaces/product.interface';
+import { zip } from 'rxjs';
 
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Product,CreateProductDTO, UpdateProductDTO }from '../interfaces/product
 })
 export class ProductsService {
 
-  private apiUrl = ' https://api.escuelajs.co/api/v1/products/'
+  private apiUrl = 'https://api.escuelajs.co/api/v1/products/'
 
   constructor(
     private Http: HttpClient
@@ -17,6 +18,13 @@ export class ProductsService {
   getAllProducts(){
     // Con <Product> Le estamos diciendo el tipo de objeto que esperamos que nos devuelva
     return this.Http.get<Product[]>(this.apiUrl);
+  }
+
+  fetchReadAndUpdate (id:number, dto: UpdateProductDTO) {
+    return zip(
+      this.getProduct(id),
+      this.upDate(id, {title: 'nuevo'})
+    )
   }
 
   getProduct(id:number) {
