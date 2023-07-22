@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { from } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
+
 
 //import { environment } from '../directives'
 import { User , CrateUserDTO } from '../interfaces/users.interface'
@@ -9,7 +11,8 @@ import { User , CrateUserDTO } from '../interfaces/users.interface'
   providedIn: 'root'
 })
 export class UsersService {
-  private apiUrl = 'https://api.escuelajs.co/api/v1/products/'
+  private apiUrl = 'https://api.escuelajs.co/api/v1/users/'
+
 
   constructor(
     private http: HttpClient
@@ -17,7 +20,7 @@ export class UsersService {
 
 
     create(dto:CrateUserDTO){
-      return this.http.post(this.apiUrl, dto)
+      return this.http.post<User>(this.apiUrl, dto)
     }
 
     getAll(dto:CrateUserDTO){
