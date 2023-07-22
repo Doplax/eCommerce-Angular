@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 
 
 
@@ -12,6 +12,9 @@ import { User } from '../interfaces/users.interface';
   providedIn: 'root'
 })
 export class AuthService {
+
+
+
   private apiUrl = 'https://api.escuelajs.co/api/v1/auth'
 
 
