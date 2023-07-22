@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpErrorResponse, HttpStatusCode } from '@angular/common/http'
-import {  catchError  } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 
 
 import { environment } from 'src/environments/environment';
 import { Auth } from '../interfaces/auth.model';
+import { User } from '../interfaces/users.interface';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://api.escuelajs.co/api/v1/auth/login'
+  private apiUrl = 'https://api.escuelajs.co/api/v1/auth'
 
 
   constructor(
@@ -20,26 +20,20 @@ export class AuthService {
   ) { }
 
   login(email:string, password:string) {
-    return this.http.post<Auth>(this.apiUrl,{"email":email, "password":password})
-    .pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 500) {
-        return throwError('Ups, Halgo está fallando en el servidor')
-
-      }
-      if (error.status === HttpStatusCode.NotFound) {// Seria un error 404
-        return throwError('Ups, El producto no existe')
-
-      }
-      if (error.status === HttpStatusCode.Unauthorized) {// Seria un error 401
-        return throwError('Ups, No estás autorizado')
-
-      }
-        return throwError('Ups, ha habido un error')
-
-    }));
+    return this.http.post<Auth>(this.apiUrl+'/login',{"email":email, "password":password})
   }
 
-  profile() {
-    return this.http.get(this.apiUrl)
+  profile(token:string) {
+    //Fomra 1 de mandar headers
+    //const headers = new Headers();
+    //headers.set('Authorization', `Bearer ${token}`);
+
+
+    return this.http.get<User>(this.apiUrl+'/profile',{
+      //Fomra 2 de mandar headers
+
+      headers: { "Authorization": `Bearer ${token}`}
+
+    })
   }
 }
