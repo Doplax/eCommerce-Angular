@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { retry, catchError } from 'rxjs/operators';
-import { throwError, map } from 'rxjs';
+import { throwError, map , zip } from 'rxjs';
 
 
 import { Product,CreateProductDTO, UpdateProductDTO }from '../interfaces/product.interface';
-import { zip } from 'rxjs';
+import { checkTime } from '../interceptors/time.interceptor';
+//import { environment } from "../../environments/environment.prod"
 
-import { environment } from "../../environments/environment.prod"
-import { isNgTemplate } from '@angular/compiler';
 
 
 @Injectable({
@@ -29,7 +28,14 @@ export class ProductsService {
       params.set('limit', limit);
       params.set('offset', offset);
     }
-    return this.Http.get<Product[]>(this.apiUrl,{params});
+    return this.Http.get<Product[]>(this.apiUrl,{params, context: checkTime()})
+      .pipe(retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: 0.21 * item.price
+        }
+      })))
 
 
   }
