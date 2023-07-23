@@ -4,6 +4,7 @@ import { StoreService } from '../../services/store.service';
 import { AuthService } from '../../services/auth.service';
 
 import { User } from 'src/app/interfaces/users.interface';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -35,19 +36,28 @@ export class NavComponent implements OnInit {
   }
 
   login(){
-    this.authService.login("pedro@gmail.com","password")
-    .subscribe(rta => {
-      this.token = rta.access_token;
-      console.log(this.token);
-      this.getProfile();
+    //this.authService.login("pedro@gmail.com","password")
+    //.subscribe(rta => {
+    //  this.token = rta.access_token;
+    //  console.log(this.token);
+    //  this.getProfile();
+    //})
+
+    this.authService.loginAndGet("john@mail.com","changeme")
+    .subscribe(user => {
+      this.profile = user;
+      console.log(user);
+      //this.token = '---'
     })
   }
 
-  getProfile() {
-    this.authService.profile(this.token)
-    .subscribe(user => {
-      this.profile = user;
-    })
-  }
+  //getProfile() {
+  //  this.authService.getProfile()
+  //  .subscribe(user => {
+  //    this.profile = user;
+  //  })
+  //}
+
+
 
 }

@@ -13,7 +13,11 @@ import { NavComponent } from './components/nav/nav.component';
 import { ReversePipe } from './pipes/reverse.pipe';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
+
+//Los interceptores, hay que inyectarlos manualmente a los providers
 import { TimeInterceptor } from './interceptors/time.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+
 
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
@@ -41,7 +45,12 @@ register();
 
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:TimeInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass:TimeInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass:TokenInterceptor, multi: true}
+
+  ],
+
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
