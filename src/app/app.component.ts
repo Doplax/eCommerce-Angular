@@ -13,6 +13,7 @@ import { FilesService } from './services/files.service';
 
 export class AppComponent {
   token = '';
+  imgRta = '';
 
   constructor(
     private usersService: UsersService,
@@ -37,6 +38,19 @@ export class AppComponent {
   downloadPdf(){
     this.filesService.getFile('my.pdf','https://young-sands-07814.herokuapp.com/api/files/dummy.pdf', 'aplication/pdf')
     .subscribe()
+  }
+
+  onUpload(event: Event) {
+    const element = event.target as HTMLInputElement;
+    const file = element.files?.item(0);
+    if (file) {
+      this.filesService.uploadFile(file)
+      .subscribe(data => {
+        this.imgRta = data.location
+      })
+    }
+
+    
   }
 
 }
