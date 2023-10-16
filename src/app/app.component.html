@@ -1,4 +1,17 @@
 <app-nav/>
+<button (click)="createUser()">Create User</button>
+<a href="../assets/files/text.txt" download=""> Descargar </a>
+<p>
+  <button (click)="downloadPdf()">
+    Descargar PDF
+  </button>
+</p>
+<p>
+  <input type="file" (change)="onUpload($event)">
+  <img *ngIf="imgRta" [src]="imgRta" >
+</p>
+<hr/>
+<app-products-list/>
 <router-outlet></router-outlet>
 
 <!--<button (click)="createUser()">Create User</button>-->
