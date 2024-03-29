@@ -13,6 +13,8 @@ import { Product } from '../../interfaces/product.interface';
 export class HomeComponent implements OnInit {
   limit = 10
   offset = 0
+  products!: Product[]; // Declaración de la propiedad products como un array de Product
+
 
   constructor (
     private productsService: ProductsService
@@ -26,5 +28,5 @@ export class HomeComponent implements OnInit {
 
 
 
-  
+
 }
